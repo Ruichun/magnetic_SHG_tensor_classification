@@ -607,14 +607,155 @@ header, .context-menu, .megamenu-content, footer{
     background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
 }
 
+/* ���ı�����: #write */
+/* [TOC]Ŀ¼����: .md-toc-content */
+/* �������Ŀ¼�����: .sidebar-content */
+
+/** 
+ * ˵����
+ *     Typora�ı��⹲��6������h1��h6��
+ *     �Ҹ��˾���h1���ı���̫�������ҵı��ⶼ�Ǵ�h2����ʼ��
+ *     ����ϰ��ÿƪ���¶���һ���ܱ��⣬��һ��Ŀ¼������h2���ı���ǰ���������������
+ *     һ������£�����Ȼ��ʹ��h1���ı��⣬����Ϊ���Է���һ��h1���ı���ǰ����Ҳ�����������
+ *     ��������h1�����⣬��ȡ��������content: counter(h1) "."�����ע�ͣ�Ȼ�󽫰�����content: counter(h2) "."������ע�͵����ɡ�
+ */ 
+/** initialize css counter */
+#write, .sidebar-content,.md-toc-content{
+	/* ����ȫ�ּ������Ļ�׼ */
+	/* ��Ϊ��ϲ����h2����������������������Ϊh2 */
+    counter-reset: h2
+}
+
+#write h1, .outline-h1, .md-toc-item.md-toc-h1 {
+    counter-reset: h2
+}
+
+#write h2, .outline-h2, .md-toc-item.md-toc-h2 {
+    counter-reset: h3
+}
+
+#write h3, .outline-h3, .md-toc-item.md-toc-h3 {
+    counter-reset: h4
+}
+
+#write h4, .outline-h4, .md-toc-item.md-toc-h4 {
+    counter-reset: h5
+}
+
+#write h5, .outline-h5, .md-toc-item.md-toc-h5 {
+    counter-reset: h6
+}
+
+/** put counter result into headings */
+#write h1:before,
+.outline-h1>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h1>.md-toc-inner:before {
+    counter-increment: h1;
+    content: counter(h1) ". "
+}
+
+/* ʹ��h1����ʱ��ȥ��ǰ����h1�������ţ��������ı��⡢Ŀ¼���ʹ�� */
+/* nth-of-type�е����ֱ�ʾ��ȡ�ڼ���h1Ԫ�أ��������������޸ġ� */
+#write h1:nth-of-type(1):before,
+.outline-h1:nth-of-type(1)>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h1:nth-of-type(1)>.md-toc-inner:before,
+#write h1:nth-of-type(2):before,
+.outline-h1:nth-of-type(2)>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h1:nth-of-type(2)>.md-toc-inner:before{
+	counter-reset: h1;
+	content: ""
+}
+
+#write h2:before,
+.outline-h2>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h2>.md-toc-inner:before {
+    counter-increment: h2;
+    content: counter(h2) ". "
+}
+
+/* ʹ��h2����ʱ��ȥ��ǰ����h2�������ţ��������ı��⡢Ŀ¼���ʹ�� */
+/* nth-of-type�е����ֱ�ʾ��ȡ�ڼ���h2Ԫ�أ��������������޸ġ� */
+#write h2:nth-of-type(1):before,
+.outline-h2:nth-of-type(1)>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h2:nth-of-type(1)>.md-toc-inner:before,
+#write h2:nth-of-type(2):before,
+.outline-h2:nth-of-type(2)>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h2:nth-of-type(2)>.md-toc-inner:before{
+	counter-reset: h2;
+	content: ""
+}
+
+#write h3:before,
+h3.md-focus.md-heading:before, /** override the default style for focused headings */
+.outline-h3>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h3>.md-toc-inner:before {
+	text-decoration: none;
+    counter-increment: h3;
+    /* content: counter(h1) "." counter(h2) "." counter(h3) ". " */
+    content: counter(h2) "." counter(h3) ". "
+}
+
+#write h4:before,
+h4.md-focus.md-heading:before,
+.outline-h4>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h4>.md-toc-inner:before {
+	text-decoration: none;
+    counter-increment: h4;
+    /* content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". " */
+    content: counter(h2) "." counter(h3) "." counter(h4) ". "
+}
+
+#write h5:before,
+h5.md-focus.md-heading:before,
+.outline-h5>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h5>.md-toc-inner:before {
+	text-decoration: none;
+    counter-increment: h5;
+    /* content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". " */
+    content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "
+}
+
+#write h6:before,
+h6.md-focus.md-heading:before,
+.outline-h6>.outline-item>.outline-label:before,
+.md-toc-item.md-toc-h6>.md-toc-inner:before {
+	text-decoration: none;
+    counter-increment: h6;
+    /* content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". " */
+    content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "
+}
+
+/** override the default style for focused headings */
+#write>h3.md-focus:before,
+#write>h4.md-focus:before,
+#write>h5.md-focus:before,
+#write>h6.md-focus:before,
+h3.md-focus:before,
+h4.md-focus:before,
+h5.md-focus:before,
+h6.md-focus:before {
+    color: inherit;
+    border: inherit;
+    border-radius: inherit;
+    position: inherit;
+    left:initial;
+    float: none;
+    top:initial;
+    font-size: inherit;
+    padding-left: inherit;
+    padding-right: inherit;
+    vertical-align: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
 
 
 </style><title>index</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='classification-of-shg-effect-in-magnetically-ordered-materials'><span>Classification of SHG effect in magnetically ordered materials</span></h1><p><img src="./logo.png" referrerpolicy="no-referrer"></p><hr /><h3 id='>-classification-of-shg-according-to-symmetry-and-origin'><a href='./ClassificationOfSHG.html'><span>&gt; Classification of SHG according to symmetry and origin </span></a></h3><p>&nbsp;</p><h3 id='>-characters-and-symmetries-of-shg-in-magnetic-point-groups'><a href='./CharactersAndsymmetriesOfSHG.html'><span>&gt; Characters and symmetries of SHG in magnetic point groups</span></a></h3><p>&nbsp;</p><h3 id='>-shg-and-lmo-symmetry-of-32-gray-and-32-original-magnetic-point-groups'><a href='./SHGtable-32.html'><span>&gt; SHG and LMO symmetry of 32 gray and 32 original magnetic point groups</span></a></h3><p>&nbsp;</p><h3 id='>-shg-and-lmo-symmetry-of-58-black-white-magnetic-point-groups'><a href='./SHGtable-58.html'><span>&gt; SHG and LMO symmetry of 58 Black-White magnetic point groups</span></a></h3><p>&nbsp;</p><h3 id='>-symmetry-of-linear-magneto-optic-effect'><a href='./Symmetry-of-linear-magneto-optic-effect.html'><span>&gt; Symmetry of linear magneto-optic effect</span></a></h3><p>&nbsp;</p><h3 id='>-classification-of-shg-in-magndata-database'><a href='./MAGNDATA.html'><span>&gt; Classification of SHG in MAGNDATA database</span></a></h3><p><strong><span>Notation:</span></strong><span> </span></p><p><em><span>SHG: second harmonic generation</span></em>
-<em><span>LMO: linear magneto-optic</span></em></p><p><strong><span>Reference</span></strong><span>: </span><a href='https://www.nature.com/articles/s41535-023-00594-3'><span>Classification of second harmonic generation effect in magnetically ordered materials | npj Quantum Materials (nature.com)</span></a><span>，Rui-Chun Xiao,  Ding-Fu Shao, Wei Gan, Huan-Wen Wang, Hui Han, Z. G. Sheng, Changjin Zhang, Hua Jiang, and Hui Li</span></p><hr /><p><strong><span>(c) The authors</span></strong>
+<div id='write'  class=''><h1 id='classification-of-shg-effect-in-magnetically-ordered-materials'><span>Classification of SHG effect in magnetically ordered materials</span></h1><p><img src="./logo.png" referrerpolicy="no-referrer"></p><hr /><p><span style="font-size: 25px;"><span> </span><a href='./ClassificationOfSHG.html'><span>&gt;Classification of SHG according to symmetry and origin </span></a><span> </span></span></p><p>&nbsp;</p><p><span style="font-size: 25px;"><a href='./CharactersAndsymmetriesOfSHG.html'><span>&gt; Characters and symmetries of SHG in magnetic point groups</span></a><span> </span></span></p><p>&nbsp;</p><p><span style="font-size: 25px;"><a href='./SHGtable-32.html'><span>&gt; SHG and LMO symmetry of 32 gray and 32 original magnetic point groups</span></a><span> </span></span></p><p>&nbsp;</p><p><span style="font-size: 25px;"><a href='./SHGtable-58.html'><span>&gt; SHG and LMO symmetry of 58 Black-White magnetic point groups</span></a><span> </span></span></p><p>&nbsp;</p><p><span style="font-size: 25px;"><a href='./Symmetry-of-linear-magneto-optic-effect.html'><span>&gt; Symmetry of linear magneto-optic effect</span></a><span> </span></span></p><p>&nbsp;</p><p><span style="font-size: 25px;"><a href='./MAGNDATA.html'><span>&gt; Classification of SHG in MAGNDATA database</span></a><span> </span></span></p><p><strong><span>Notes:</span></strong><span> </span></p><ol><li><p><em><span>SHG: second harmonic generation</span></em><span>, </span><em><span>LMO: linear magneto-optic</span></em></p></li><li><p><span>The above results are now included in </span><a href='https://ruichun.github.io/TensorSymmetry/'><span>Symmetry-adapted tensors ...</span></a></p></li><li><p><span>Reference: </span><a href='https://www.nature.com/articles/s41535-023-00594-3'><span>Classification of second harmonic generation effect in magnetically ordered materials | npj Quantum Materials (nature.com)</span></a></p></li></ol><hr /><p><strong><span>(c) The authors</span></strong>
 <strong><span>Institute of Quantum Materials and Physics, Institute of Physical Science and Information Technology and Information Materials, Anhui University, Hefei 230601, China (安徽大学物质科学与信息技术研究院 量子材料与物理研究所) </span></strong>
-<strong><span>Contact:  </span><a href='mailto:xiaoruichun@ahu.edu.cn' target='_blank' class='url'>xiaoruichun@ahu.edu.cn</a></strong><span> (Associate Prof. Rui-Chun Xiao 肖瑞春)</span></p><p><span>Visitor map:</span></p><p><a href="https://clustrmaps.com/site/1c1mt"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=txpFx__K5VI-AntqNKwGRWbcaQHHcNmo21t4aVEKIDA&cl=ffffff" /></a></p></div></div>
+<strong><span>Contact:  </span><a href='mailto:xiaoruichun@ahu.edu.cn' target='_blank' class='url'>xiaoruichun@ahu.edu.cn</a></strong><span> (Rui-Chun Xiao 肖瑞春)</span></p><p><span>Visitor map:</span></p><p><a href="https://clustrmaps.com/site/1c1mt"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=txpFx__K5VI-AntqNKwGRWbcaQHHcNmo21t4aVEKIDA&cl=ffffff" /></a></p></div></div>
 </body>
 </html>
